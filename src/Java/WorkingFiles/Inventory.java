@@ -13,7 +13,7 @@ public class Inventory {
 
     public static void main(String[] args)
     {
-
+        // test commit
         JSONParser jsonParser = new JSONParser();  // This helps to read our json file
 
         try (FileReader reader = new FileReader("src/Java/inventory.json"))
