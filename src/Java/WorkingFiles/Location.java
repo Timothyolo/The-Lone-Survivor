@@ -36,7 +36,7 @@ public class Location {
 
     private static void parseLocationObject(JSONObject location)
     {
-        //testing: getting items from the location object
+        //Getting player location
         JSONObject locationObject = (JSONObject) location.get("location");
 
         String direction = (String) locationObject.get("direction");
