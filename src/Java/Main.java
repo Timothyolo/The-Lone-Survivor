@@ -11,6 +11,7 @@ public class Main {
         GameEngine game = new GameEngine();
 
         //Loop
+        //test luxi
         while(true) {
             System.out.println("Welcome to Lone Survivor, a text-based adventure game! ");
             System.out.println("Are you ready to play? (Y/N)"); //main - if Y, starting game, if N, re-loops to beginning
