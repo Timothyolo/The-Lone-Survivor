@@ -28,6 +28,9 @@ public class CommandProcessor {
         else if (command.get(0).equals("use")) {
             //Use engine
         }
+        else if(command.get(0).equals("commands")){
+
+        }
     }
 
     private void MoveEngine(){}
