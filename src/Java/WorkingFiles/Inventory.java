@@ -13,8 +13,7 @@ public class Inventory {
 
     public static void main(String[] args)
     {
-        // another testing
-        // this is a comment
+
         JSONParser jsonParser = new JSONParser();  // This helps to read our json file
 
         try (FileReader reader = new FileReader("src/Java/External_Files/inventory.json"))
@@ -37,7 +36,7 @@ public class Inventory {
 
     private static void parseInventoryObject(JSONObject inventory)
     {
-        //testing: getting items from the inventory object
+        //Player can get items from the inventory
         JSONObject inventoryObject = (JSONObject) inventory.get("inventory");
 
         String itemName = (String) inventoryObject.get("itemName");
