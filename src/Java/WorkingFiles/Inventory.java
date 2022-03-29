@@ -40,10 +40,10 @@ public class Inventory {
         JSONObject inventoryObject = (JSONObject) inventory.get("inventory");
 
         String itemName = (String) inventoryObject.get("itemName");
-        System.out.println(itemName);
+        System.out.println("Here is the " + itemName);
 
         String itemAttribute = (String) inventoryObject.get("itemAttribute");
-        System.out.println(itemAttribute);
+        System.out.println("Grab the radio to " + itemAttribute);
 
         String itemLocation = (String) inventoryObject.get("itemLocation");
         System.out.println(itemLocation);
