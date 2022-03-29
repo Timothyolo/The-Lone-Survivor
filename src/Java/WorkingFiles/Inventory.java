@@ -40,7 +40,7 @@ public class Inventory {
         JSONObject inventoryObject = (JSONObject) inventory.get("inventory");
 
         String itemName = (String) inventoryObject.get("itemName");
-        System.out.println(itemName);
+        System.out.println("Make a call with " + itemName);
 
         String itemAttribute = (String) inventoryObject.get("itemAttribute");
         System.out.println(itemAttribute);
