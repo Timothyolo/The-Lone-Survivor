@@ -66,13 +66,16 @@ public class TextParser {
         if (command.size() > 2) {
             System.out.println("Valid command must contain only two words");
         }
+        else if (command.get(0).equals("commands")){
+            System.out.println("available verbs are :" + verbList + ", and available nouns are: " +nounList);
+        }
         else if (command.get(0).equals("quit")){
             System.exit(0);
         }
         else {
             verb = command.get(0);
             if (!verbList.contains(verb)) {
-                System.out.println(verb + "is not a valid action");
+                System.out.println(verb + " is not a valid action");
             }
             else{
                 validCommand.add(verb);

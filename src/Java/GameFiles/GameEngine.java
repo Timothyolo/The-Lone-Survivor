@@ -14,7 +14,7 @@ public class GameEngine {
     public void startGame() throws IOException {
         String input;
 
-        System.out.println("Enter a command: ");
+        System.out.println("Enter a command (or to see a list of commands type 'commands'): ");
 
         input = in.readLine();
         parser.InitialInput(input);
