@@ -14,9 +14,10 @@ public class Inventory {
     public static void main(String[] args)
     {
         // another testing
+        // this is a comment
         JSONParser jsonParser = new JSONParser();  // This helps to read our json file
 
-        try (FileReader reader = new FileReader("src/Java/inventory.json"))
+        try (FileReader reader = new FileReader("src/Java/External_Files/inventory.json"))
         {
             Object obj = jsonParser.parse(reader);
 
