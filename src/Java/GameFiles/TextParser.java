@@ -1,5 +1,12 @@
 package Java.GameFiles;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -9,22 +16,29 @@ public class TextParser {
 
         //parser should lowercase all words, remove white spaces and articles, separate the verbs and nouns
         //Ingest Text, Parse it, Identify Keywords, Process Command
-        //nouns = items, locations, animals
 
-    List<String> validCommand = new ArrayList<>();
-    String text;
 
-    public TextParser() {}
+    JSONParser jsonParser;
+    List<String> validCommand;
+    FileReader reader;
+    //String text;
 
-    public TextParser(String input) {
-        text = input;
+    public TextParser() throws FileNotFoundException {
+        jsonParser = new JSONParser();
+        validCommand = new ArrayList<>();
+        reader = new FileReader("src/Java/External_Files/CommandList.json");
+
     }
+
+    /*public TextParser(String input) {
+        text = input;
+    }*/
 
     public List<String> getValidCommand() {
         return validCommand;
     }
 
-    public void InitialInput(String text) {
+    public void InitialInput(String text) throws IOException, ParseException {
         List<String> command;
 
         String newStr = text.trim().toLowerCase();
@@ -55,23 +69,29 @@ public class TextParser {
         return tokenList;
     }
 
-    public void ParseCommand(List<String> command) {
+    public void ParseCommand(List<String> command) throws IOException, ParseException {
         String verb;
         String noun;
 
-        List<String> verbList = new ArrayList<>(Arrays.asList("go", "get", "look", "use", "quit"));
-        List<String> nounList = new ArrayList<>(Arrays.asList("radio", "compass", "flare", "inflatable raft", "flashlight", "life jacket", "food", "knife", "north", "south", "west", "east"));
+        JSONArray file = (JSONArray) jsonParser.parse(reader);
 
-        //need case for help info
-        if (command.size() > 2) {
-            System.out.println("Valid command must contain only two words");
+        JSONObject verbObj = (JSONObject) file.get(0);
+        JSONObject nounObj = (JSONObject) file.get(1);
+
+        JSONArray verbList = (JSONArray) verbObj.get("verb");
+        JSONArray nounList = (JSONArray) nounObj.get("noun");
+
+
+        //List<String> verbList = new ArrayList<>(Arrays.asList("go", "get", "look", "use", "quit", "help"));
+        //List<String> nounList = new ArrayList<>(Arrays.asList("radio", "compass", "flare", "inflatable raft", "flashlight", "life jacket", "food", "knife", "around", "north", "south", "west", "east", "game"));
+
+        //need case for help game
+        if (command.size() != 2) {
+            System.out.println("Valid command must contain only two words. Type 'help game' for a list of valid commands.");
         }
-        else if (command.get(0).equals("commands")){
-            System.out.println("available verbs are :" + verbList + ", and available nouns are: " +nounList);
-        }
-        else if (command.get(0).equals("quit")){
+        /*else if (command.get(0).equals("quit")){
             System.exit(0);
-        }
+        }*/
         else {
             verb = command.get(0);
             if (!verbList.contains(verb)) {

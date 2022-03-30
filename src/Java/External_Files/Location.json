@@ -1,7 +1,23 @@
-[{"location": {
-  "locationID": "4771",
-  "locationCategory": "tent",
-  "direction": "South"
-}
-}
-]
+[
+  {
+    "location": [{
+      "name": "cockpit",
+      "description": "tent",
+      "items": ["radio", "compass"]
+    },
+  {
+    "name": "first class",
+    "description": "tent",
+    "items": ["flare", "inflatable raft"]
+  },
+  {
+    "name": "economy class",
+    "description": "tent",
+    "items": ["flashlight", "life jacket"]
+  },
+  {
+    "name": "service area",
+    "description": "tent",
+    "items": ["food", "knife"]
+  }]
+  }]
