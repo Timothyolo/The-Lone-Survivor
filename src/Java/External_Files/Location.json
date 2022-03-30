@@ -1,23 +1,71 @@
 [
   {
-    "location": [{
-      "name": "cockpit",
-      "description": "tent",
-      "items": ["radio", "compass"]
-    },
-  {
-    "name": "first class",
-    "description": "tent",
-    "items": ["flare", "inflatable raft"]
+    "location": {
+      "locationName": "cockpit",
+      "locationDescription": "Pilot working area",
+      "locationItems": [
+        {
+          "itemName": "radio"
+        },
+        {
+          "itemName": "compass"
+        }
+      ],
+      "locationDirections": {
+        "south": "first class",
+        "east": "bathroom"
+      }
+    }
   },
   {
-    "name": "economy class",
-    "description": "tent",
-    "items": ["flashlight", "life jacket"]
+    "location": {
+      "locationName": "first class",
+      "locationDescription": "passenger sitting area",
+      "locationItems": [
+        {
+          "itemName":["flare", "inflatable raft"]
+        }
+      ],
+      "locationDirections": {
+        "north": "exit",
+        "west": "cockpit"
+      }
+    }
   },
   {
-    "name": "service area",
-    "description": "tent",
-    "items": ["food", "knife"]
-  }]
-  }]
+    "location": {
+      "locationName": "economy class",
+      "locationDescription": "economy passenger sitting area",
+      "locationItems": [
+        {
+          "itemName": "flashlight"
+        },
+        {
+          "itemName": "life jacket"
+        }
+      ],
+      "locationDirections": {
+        "west": "first class",
+        "south": "service area"
+      }
+    }
+  },
+  {
+  "location": {
+    "locationName": "service area",
+    "locationDescription": "hostess working area",
+    "locationItems": [
+      {
+        "itemName": "food"
+      },
+      {
+        "itemName": "knife"
+      }
+    ],
+    "locationDirections": {
+      "west": "economy class",
+      "south": "exit"
+    }
+  }
+}
+]

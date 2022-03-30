@@ -16,7 +16,7 @@ public class Location {
 
         JSONParser jsonParser = new JSONParser();  // This helps to read our json file
 
-        try (FileReader reader = new FileReader("src/Java/Location.json"))
+        try (FileReader reader = new FileReader("src/Java/External_Files/Location.json"))
         {
             Object obj = jsonParser.parse(reader);
 
@@ -39,11 +39,11 @@ public class Location {
         //Getting player location
         JSONObject locationObject = (JSONObject) location.get("location");
 
-        String direction = (String) locationObject.get("direction");
-        System.out.println(direction);
+        String locationDescription = (String) locationObject.get("locationDescription");
+        System.out.println(locationDescription);
 
-        String locationID = (String) locationObject.get("locationID");
-        System.out.println(locationID);
+        String locationName = (String) locationObject.get("locationName");
+        System.out.println(locationName);
 
 
     }
