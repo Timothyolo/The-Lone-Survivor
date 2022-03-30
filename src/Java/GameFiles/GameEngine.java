@@ -1,17 +1,26 @@
 package Java.GameFiles;
 
+import org.json.simple.parser.ParseException;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
 public class GameEngine {
 
-    private TextParser parser = new TextParser();
-    private CommandProcessor processor = new CommandProcessor();
-    private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    private TextParser parser;
+    private CommandProcessor processor;
+    private BufferedReader in;
+    public Player player;
 
-    public void startGame() throws IOException {
+    public GameEngine() throws FileNotFoundException {
+        parser = new TextParser();
+        processor = new CommandProcessor();
+        in = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    public void startGame() throws IOException, ParseException  {
         String input;
 
         System.out.println("Enter a command (or to see a list of commands type 'commands'): ");
@@ -19,7 +28,7 @@ public class GameEngine {
         input = in.readLine();
         parser.InitialInput(input);
         List<String> command = parser.getValidCommand();
-        processor.Processor(command);
+        processor.processCommand(command);
         //need to send validated command to command processor
 
     }
