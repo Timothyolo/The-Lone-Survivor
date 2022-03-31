@@ -18,7 +18,7 @@ public class CommandProcessor {
     private List<String> command;
     Player player = new Player();
     JSONParser jsonParser = new JSONParser();
-    FileReader itemReader;
+    FileReader reader;
 
     public void processCommand(List<String> validCommand) throws IOException, ParseException {
         command = validCommand;
@@ -44,6 +44,7 @@ public class CommandProcessor {
         }
         else if (command.get(0).equals("help")) {
             //help engine
+            helpEngine(command.get(1));
         }
     }
 
@@ -51,26 +52,34 @@ public class CommandProcessor {
 
     private void getEngine(String noun) throws IOException, ParseException {
         //get item from JSON file
-        itemReader = new FileReader("src/Java/External_Files/inventory.json");
-        JSONArray fileArray = (JSONArray) jsonParser.parse(itemReader);
-        //System.out.println(inventory);
+        reader = new FileReader("src/Java/External_Files/location.json");
+        JSONArray fileArray = (JSONArray) jsonParser.parse(reader);
 
-        JSONObject inventory = (JSONObject) fileArray.get(0);
-        JSONObject item = (JSONObject) inventory.get("inventory");
+        JSONObject inventory = (JSONObject) fileArray.get(0); //this line needs to be based on where the player is
         //JSONObject item = (JSONObject) inventory.get("inventory");
+        String itemName = (String) inventory.get("locationItems");
 
-        String itemName = (String) item.get("itemName");
+        //String itemName = (String) item.get("itemName");
         System.out.println(itemName);
 
         if (noun.equals(itemName)){
             player.addItems(itemName);
-
         }
         //player.addItems(itemName);
     }
 
-    private void lookEngine(String noun){
+    private void lookEngine(String noun) throws IOException, ParseException {
         //get location from JSON file
+        System.out.println("You look around and see: "  );
+        reader = new FileReader("src/Java/External_Files/location.json");
+        JSONArray fileArray = (JSONArray) jsonParser.parse(reader);
+
+        for (Object obj : fileArray) {
+            //JSONObject location = (JSONObject) fileArray.get(0);
+            System.out.println(obj);
+        }
+
+
     }
 
     private void useEngine(String noun){}
@@ -82,7 +91,18 @@ public class CommandProcessor {
         }
     }
 
-    private void helpEngine(String noun){
-
+    private void helpEngine(String noun) throws IOException, ParseException {
+        if (noun.equals("commands")) {
+            reader = new FileReader("src/Java/External_Files/CommandList.json");
+            JSONArray fileInfo = (JSONArray) jsonParser.parse(reader);
+            JSONObject gameInfo = (JSONObject) fileInfo.get(2);
+            System.out.println(gameInfo);
+        }
+        else if (noun.equals("game")){
+            reader = new FileReader("src/Java/External_Files/GameInfo.json");
+            JSONObject fileInfo = (JSONObject) jsonParser.parse(reader);
+            String gameInfo = (String) fileInfo.get("gameInfo");
+            System.out.println(gameInfo);
+        }
     }
 }
