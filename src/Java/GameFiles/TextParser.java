@@ -87,6 +87,7 @@ public class TextParser {
 
         //need case for help game
         if (command.size() != 2) {
+            //to see a list of available command
             if(command.get(0).equals("help")){
                 System.out.println("Available action words are:"+verbList +
                         "\nAnd a list of available object words are: "+ nounList);}
