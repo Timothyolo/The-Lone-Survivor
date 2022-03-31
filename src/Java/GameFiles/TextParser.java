@@ -21,13 +21,14 @@ public class TextParser {
     JSONParser jsonParser;
     List<String> validCommand;
     FileReader reader;
+    JSONArray file;
     //String text;
 
-    public TextParser() throws FileNotFoundException {
+    public TextParser() throws IOException, ParseException {
         jsonParser = new JSONParser();
         validCommand = new ArrayList<>();
         reader = new FileReader("src/Java/External_Files/CommandList.json");
-
+        //file = (JSONArray) jsonParser.parse(reader);
     }
 
     /*public TextParser(String input) {
@@ -72,54 +73,50 @@ public class TextParser {
     public void ParseCommand(List<String> command) throws IOException, ParseException {
         String verb;
         String noun;
-
+        String comm;
+        //reader = new FileReader("src/Java/External_Files/CommandList.json");
         JSONArray file = (JSONArray) jsonParser.parse(reader);
 
         JSONObject verbObj = (JSONObject) file.get(0);
         JSONObject nounObj = (JSONObject) file.get(1);
+        JSONObject commObj = (JSONObject) file.get(2);
 
         JSONArray verbList = (JSONArray) verbObj.get("verb");
         JSONArray nounList = (JSONArray) nounObj.get("noun");
+        JSONArray commList = (JSONArray) commObj.get("valid commands");
 
-
-        //List<String> verbList = new ArrayList<>(Arrays.asList("go", "get", "look", "use", "quit", "help"));
-        //List<String> nounList = new ArrayList<>(Arrays.asList("radio", "compass", "flare", "inflatable raft", "flashlight", "life jacket", "food", "knife", "around", "north", "south", "west", "east", "game"));
-
-        //need case for help game
         if (command.size() != 2) {
-            //to see a list of available command
-            if(command.get(0).equals("help")){
-                System.out.println("Available action words are:"+verbList +
-                        "\nAnd a list of available object words are: "+ nounList);}
-            else{
-                System.out.println("Valid command must contain only two words. " +
-                        "or Type 'help' for a list of valid commands.");}
+            System.out.println("Valid command must contain only two words. Type 'help game' for a list of valid commands.");
         }
         /*else if (command.get(0).equals("quit")){
             System.exit(0);
         }*/
-
         else {
             verb = command.get(0);
-            if (!verbList.contains(verb)) {
-                System.out.println(verb + " is not a valid action");
+            noun = command.get(1);
+
+            if (verbList.contains(verb) && nounList.contains(noun)) {
+                comm = verb + " " + noun;
+                if (commList.contains(comm)) {
+                    validCommand.add(verb);
+                    validCommand.add(noun);
+                }
+                else {
+                    System.out.println(comm + " is not a valid action");
+                }
+
             }
-            else {
-//                if(command.get(0).equals("help")){
-//                    System.out.println("Available action words are:"+verbList +
-//                            "\nAnd a list of available object words are: "+ nounList);
-//                }
-//
-                validCommand.add(verb);
+            else{
+                System.out.println(verb + noun + " is not a valid action");
             }
 
-            noun = command.get(1);
-            if (!nounList.contains(noun)) {
+            /*if (!nounList.contains(noun)) {
                 System.out.println("There is no " + noun);
             }
             else {
                 validCommand.add(noun);
-            }
+            }*/
+
         }
 
 

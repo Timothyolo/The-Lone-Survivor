@@ -1,71 +1,32 @@
 [
   {
-    "location": {
       "locationName": "cockpit",
-      "locationDescription": "Pilot working area",
-      "locationItems": [
-        {
-          "itemName": "radio"
-        },
-        {
-          "itemName": "compass"
-        }
-      ],
-      "locationDirections": {
-        "south": "first class",
-        "east": "bathroom"
-      }
-    }
-  },
-  {
-    "location": {
+      "locationDescription": "This is the cockpit. Pilots fly the plane from here.",
+      "locationItems": ["radio", "compass"],
+      "locationDirections": ["first class", "exit"]
+
+    },
+
+   {
       "locationName": "first class",
-      "locationDescription": "passenger sitting area",
-      "locationItems": [
-        {
-          "itemName":["flare", "inflatable raft"]
-        }
-      ],
-      "locationDirections": {
-        "north": "exit",
-        "west": "cockpit"
-      }
+      "locationDescription": "This was the first class seating area.",
+      "locationItems": ["flare", "inflatable raft"],
+      "locationDirections": ["cockpit", "economy class"]
     }
-  },
-  {
-    "location": {
+  ,
+     {
       "locationName": "economy class",
-      "locationDescription": "economy passenger sitting area",
-      "locationItems": [
-        {
-          "itemName": "flashlight"
-        },
-        {
-          "itemName": "life jacket"
-        }
-      ],
-      "locationDirections": {
-        "west": "first class",
-        "south": "service area"
-      }
+      "locationDescription": "This was the economy sitting area.",
+      "locationItems": ["flashlight", "life jacket"],
+      "locationDirections": ["first class", "service area"]
     }
-  },
+  ,
+
   {
-  "location": {
     "locationName": "service area",
-    "locationDescription": "hostess working area",
-    "locationItems": [
-      {
-        "itemName": "food"
-      },
-      {
-        "itemName": "knife"
-      }
-    ],
-    "locationDirections": {
-      "west": "economy class",
-      "south": "exit"
-    }
+    "locationDescription": "This is the service area run by the flight attendants.",
+    "locationItems": ["food", "knife"],
+    "locationDirections": ["economy class", "exit"]
   }
-}
+
 ]

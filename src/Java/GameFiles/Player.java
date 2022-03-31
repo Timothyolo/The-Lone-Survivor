@@ -8,9 +8,11 @@ public class Player {
 
     private String name;
     //private ArrayList<String> inventory;
-    private Set<String> inventory = new LinkedHashSet<>();
+    private Set<String> inventory;
 
-    public Player() {}
+    public Player() {
+        inventory = new LinkedHashSet<>();
+    }
 
     /*public Player(String name, ArrayList<String> items) {
         this.name = name;
@@ -22,6 +24,7 @@ public class Player {
     }
 
     public Set<String> getItems() {
+
         return inventory;
     }
 
