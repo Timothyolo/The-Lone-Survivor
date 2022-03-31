@@ -23,7 +23,7 @@ public class GameEngine {
     public void startGame() throws IOException, ParseException  {
         String input;
 
-        System.out.println("Enter a command (or 'help game' to see a list of commands): ");
+        System.out.println("Enter a command (or 'help' to see a list of commands): ");
 
         input = in.readLine();
         parser.InitialInput(input);

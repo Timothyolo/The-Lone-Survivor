@@ -22,6 +22,7 @@ public class Main {
                 System.out.println("Quitting now...");
                 break;
             }
+
             else{
                 System.out.println("Invalid Input!");
             }

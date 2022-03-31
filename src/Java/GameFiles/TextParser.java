@@ -87,19 +87,31 @@ public class TextParser {
 
         //need case for help game
         if (command.size() != 2) {
-            System.out.println("Valid command must contain only two words. Type 'help game' for a list of valid commands.");
+            if(command.get(0).equals("help")){
+                System.out.println("Available action words are:"+verbList +
+                        "\nAnd a list of available object words are: "+ nounList);}
+            else{
+                System.out.println("Valid command must contain only two words. " +
+                        "or Type 'help' for a list of valid commands.");}
         }
         /*else if (command.get(0).equals("quit")){
             System.exit(0);
         }*/
+
         else {
             verb = command.get(0);
             if (!verbList.contains(verb)) {
                 System.out.println(verb + " is not a valid action");
             }
-            else{
+            else {
+//                if(command.get(0).equals("help")){
+//                    System.out.println("Available action words are:"+verbList +
+//                            "\nAnd a list of available object words are: "+ nounList);
+//                }
+//
                 validCommand.add(verb);
             }
+
             noun = command.get(1);
             if (!nounList.contains(noun)) {
                 System.out.println("There is no " + noun);
