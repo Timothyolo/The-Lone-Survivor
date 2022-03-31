@@ -48,7 +48,9 @@ public class CommandProcessor {
         }
     }
 
-    private void moveEngine(){}
+    private void moveEngine(){
+
+    }
 
     private void getEngine(String noun) throws IOException, ParseException {
         //get item from JSON file
