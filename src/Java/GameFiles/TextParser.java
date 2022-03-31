@@ -22,18 +22,27 @@ public class TextParser {
     List<String> validCommand;
     FileReader reader;
     JSONArray file;
+    JSONObject verbObj;
+    JSONObject nounObj;
+    JSONObject commObj;
+
+    JSONArray verbList;
+    JSONArray nounList;
+    JSONArray commList;
     //String text;
 
     public TextParser() throws IOException, ParseException {
         jsonParser = new JSONParser();
         validCommand = new ArrayList<>();
         reader = new FileReader("src/Java/External_Files/CommandList.json");
-        //file = (JSONArray) jsonParser.parse(reader);
+        file = (JSONArray) jsonParser.parse(reader);
+        verbObj = (JSONObject) file.get(0);
+        nounObj = (JSONObject) file.get(1);
+        commObj = (JSONObject) file.get(2);
+        verbList = (JSONArray) verbObj.get("verb");
+        nounList = (JSONArray) nounObj.get("noun");
+        commList = (JSONArray) commObj.get("valid commands");
     }
-
-    /*public TextParser(String input) {
-        text = input;
-    }*/
 
     public List<String> getValidCommand() {
         return validCommand;
@@ -75,15 +84,15 @@ public class TextParser {
         String noun;
         String comm;
         //reader = new FileReader("src/Java/External_Files/CommandList.json");
-        JSONArray file = (JSONArray) jsonParser.parse(reader);
+        //JSONArray file = (JSONArray) jsonParser.parse(reader);
 
-        JSONObject verbObj = (JSONObject) file.get(0);
+        /*JSONObject verbObj = (JSONObject) file.get(0);
         JSONObject nounObj = (JSONObject) file.get(1);
         JSONObject commObj = (JSONObject) file.get(2);
 
         JSONArray verbList = (JSONArray) verbObj.get("verb");
         JSONArray nounList = (JSONArray) nounObj.get("noun");
-        JSONArray commList = (JSONArray) commObj.get("valid commands");
+        JSONArray commList = (JSONArray) commObj.get("valid commands");*/
 
         if (command.size() != 2) {
             System.out.println("Valid command must contain only two words. Type 'help game' for a list of valid commands.");
@@ -98,6 +107,7 @@ public class TextParser {
             if (verbList.contains(verb) && nounList.contains(noun)) {
                 comm = verb + " " + noun;
                 if (commList.contains(comm)) {
+                    validCommand.clear();
                     validCommand.add(verb);
                     validCommand.add(noun);
                 }
