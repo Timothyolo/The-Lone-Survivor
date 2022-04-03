@@ -1,0 +1,30 @@
+[
+
+
+    {
+    "locationName": "cockpit",
+    "locationDescription": "This is the cockpit. Pilots fly the plane from here.",
+    "locationItems": ["radio", "compass"],
+    "locationDirections": {"north": "exit", "south": "first class"}
+    },
+  {
+    "locationName": "first class",
+    "locationDescription": "This is the first class seating area.",
+    "locationItems": ["flare", "raft"],
+    "locationDirections": {"north": "cockpit", "south": "economy class"}
+  },
+   {
+    "locationName": "economy class",
+    "locationDescription": "This is the economy sitting area.",
+    "locationItems": ["flashlight", "lifejacket"],
+    "locationDirections": {"north": "first class", "south": "service area"}
+  },
+   {
+    "locationName": "service area",
+    "locationDescription": "This is the service area run by the flight attendants.",
+    "locationItems": ["food", "knife"],
+    "locationDirections": {"north": "economy class", "south": "exit"}
+  }
+
+
+  ]

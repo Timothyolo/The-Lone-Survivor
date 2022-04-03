@@ -14,41 +14,41 @@ import java.util.*;
  */
 public class TextParser {
 
-        //parser should lowercase all words, remove white spaces and articles, separate the verbs and nouns
-        //Ingest Text, Parse it, Identify Keywords, Process Command
+    //parser should lowercase all words, remove white spaces and articles, separate the verbs and nouns
+    //Ingest Text, Parse it, Identify Keywords, Process Command
+    private JSONParserClass jsonParserClass;
+    //private JSONParser jsonParser;
+    private List<JSONArray> commands;
+    private List<String> validCommand;
+    //private FileReader reader;
+    //private JSONArray file;
+    //private JSONObject verbObj;
+    //private JSONObject nounObj;
+    //private JSONObject commObj;
 
-
-    JSONParser jsonParser;
-    List<String> validCommand;
-    FileReader reader;
-    JSONArray file;
-    JSONObject verbObj;
-    JSONObject nounObj;
-    JSONObject commObj;
-
-    JSONArray verbList;
-    JSONArray nounList;
-    JSONArray commList;
-    //String text;
+    private JSONArray verbList;
+    private JSONArray nounList;
+    private JSONArray commList;
 
     public TextParser() throws IOException, ParseException {
-        jsonParser = new JSONParser();
+        jsonParserClass = new JSONParserClass();
+        //jsonParser = new JSONParser();
         validCommand = new ArrayList<>();
-        reader = new FileReader("src/Java/External_Files/CommandList.json");
-        file = (JSONArray) jsonParser.parse(reader);
-        verbObj = (JSONObject) file.get(0);
-        nounObj = (JSONObject) file.get(1);
-        commObj = (JSONObject) file.get(2);
-        verbList = (JSONArray) verbObj.get("verb");
-        nounList = (JSONArray) nounObj.get("noun");
-        commList = (JSONArray) commObj.get("valid commands");
+        //reader = new FileReader("src/Java/External_Files/CommandList.json");
+        //file = (JSONArray) jsonParser.parse(reader);
+        //verbObj = (JSONObject) file.get(0);
+        //nounObj = (JSONObject) file.get(1);
+        //commObj = (JSONObject) file.get(2);
+        //verbList = (JSONArray) verbObj.get("verb");
+        //nounList = (JSONArray) nounObj.get("noun");
+        //commList = (JSONArray) commObj.get("valid commands");
     }
 
     public List<String> getValidCommand() {
         return validCommand;
     }
 
-    public void InitialInput(String text) throws IOException, ParseException {
+    public void InitialInput(String text) {
         List<String> command;
 
         String newStr = text.trim().toLowerCase();
@@ -60,7 +60,6 @@ public class TextParser {
             command = TokenizeCommand(newStr);
             command.forEach((str) -> System.out.println(str));
             ParseCommand(command);
-
         }
 
     }
@@ -79,57 +78,37 @@ public class TextParser {
         return tokenList;
     }
 
-    public void ParseCommand(List<String> command) throws IOException, ParseException {
+    public void ParseCommand(List<String> command) {
+        commands = jsonParserClass.commandParser();
+        verbList = commands.get(0);
+        nounList = commands.get(1);
+        commList = commands.get(2);
+
         String verb;
         String noun;
         String comm;
-        //reader = new FileReader("src/Java/External_Files/CommandList.json");
-        //JSONArray file = (JSONArray) jsonParser.parse(reader);
-
-        /*JSONObject verbObj = (JSONObject) file.get(0);
-        JSONObject nounObj = (JSONObject) file.get(1);
-        JSONObject commObj = (JSONObject) file.get(2);
-
-        JSONArray verbList = (JSONArray) verbObj.get("verb");
-        JSONArray nounList = (JSONArray) nounObj.get("noun");
-        JSONArray commList = (JSONArray) commObj.get("valid commands");*/
-
+        validCommand.clear();
         if (command.size() != 2) {
-            System.out.println("Valid command must contain only two words. Type 'help game' for a list of valid commands.");
+            System.out.println("Valid command must contain only two words. Type 'help commands' for a list of valid commands.");
         }
-        /*else if (command.get(0).equals("quit")){
-            System.exit(0);
-        }*/
         else {
             verb = command.get(0);
             noun = command.get(1);
-
             if (verbList.contains(verb) && nounList.contains(noun)) {
                 comm = verb + " " + noun;
                 if (commList.contains(comm)) {
-                    validCommand.clear();
+                    //validCommand.clear();
                     validCommand.add(verb);
                     validCommand.add(noun);
                 }
                 else {
                     System.out.println(comm + " is not a valid action");
                 }
-
             }
             else{
-                System.out.println(verb + noun + " is not a valid action");
+                System.out.println(verb + " " + noun + " is not a valid action");
             }
-
-            /*if (!nounList.contains(noun)) {
-                System.out.println("There is no " + noun);
-            }
-            else {
-                validCommand.add(noun);
-            }*/
-
         }
-
-
     }
 
 }
