@@ -16,7 +16,7 @@ public class Location {
 
         JSONParser jsonParser = new JSONParser();  // This helps to read our json file
 
-        try (FileReader reader = new FileReader("src/Java/External_Files/Location.json"))
+        try (FileReader reader = new FileReader("src/Java/External_Files/PlaneCrash.json"))
         {
             Object obj = jsonParser.parse(reader);
 

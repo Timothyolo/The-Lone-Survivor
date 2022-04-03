@@ -16,16 +16,22 @@ import java.util.List;
 public class CommandProcessor {
 
     private List<String> command;
-    Player player = new Player();
+    private JSONParserClass jsonParserClass;
+    Player player;
     JSONParser jsonParser = new JSONParser();
     FileReader reader;
+
+    public CommandProcessor() throws IOException, ParseException {
+        jsonParserClass = new JSONParserClass();
+        player = new Player();
+    }
 
     public void processCommand(List<String> validCommand) throws IOException, ParseException {
         command = validCommand;
 
         if (command.get(0).equals("go")){
             //move engine
-
+            moveEngine(command.get(1));
         }
         else if (command.get(0).equals("get")) {
             //get engine
@@ -48,8 +54,8 @@ public class CommandProcessor {
         }
     }
 
-    private void moveEngine(){
-
+    private void moveEngine(String noun){
+        //player.setLocation();
     }
 
     private void getEngine(String noun) throws IOException, ParseException {
@@ -72,14 +78,27 @@ public class CommandProcessor {
 
     private void lookEngine(String noun) throws IOException, ParseException {
         //get location from JSON file
-        System.out.println("You look around and see: "  );
+
         reader = new FileReader("src/Java/External_Files/location.json");
         JSONArray fileArray = (JSONArray) jsonParser.parse(reader);
-
+        System.out.println("You look around and see: "  );
         for (Object obj : fileArray) {
             //JSONObject location = (JSONObject) fileArray.get(0);
-            System.out.println(obj);
+            //display location name, location description, then directions, then items that can be picked up
+
+            //String location = (String) locationName.get("locationName");
+            //System.out.println(obj);
+            JSONObject location = (JSONObject) obj;
+            JSONArray locItems = (JSONArray) location.get("locationItems");
+            JSONArray locDirections = (JSONArray) location.get("locationDirections");
+
+            System.out.println(location.get("locationName"));
+            System.out.println(location.get("locationDescription"));
+            System.out.println(location.get("locationDirections"));
+            System.out.println(location.get("locationItems"));
         }
+
+
 
 
     }

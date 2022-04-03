@@ -9,6 +9,7 @@ public class Player {
     private String name;
     //private ArrayList<String> inventory;
     private Set<String> inventory;
+    private Location playerLocation;
 
     public Player() {
         inventory = new LinkedHashSet<>();
@@ -33,7 +34,14 @@ public class Player {
         System.out.println("Player has added " + item + " to their inventory. ");
     }
 
-    public void performAction() {
-
+    public void setPlayerLocation(Location location) {
+        playerLocation = location;
     }
+
+    public Location getPlayerLocation() {
+        return playerLocation;
+    }
+
+    public void performAction() {}
+
 }
