@@ -19,10 +19,14 @@ public class JSONParserClass {
     private FileReader locReader;
     private FileReader commReader;
     private FileReader infoReader;
+    //private FileReader outsReader;
+
     private JSONArray locFile;
     //private JSONObject locFile;
     private JSONArray commFile;
     private JSONObject infoFile;
+    //private JSONArray outsFile;
+
     private List<Location> locations;
     private Location location;
 
@@ -46,13 +50,13 @@ public class JSONParserClass {
         locReader = new FileReader("src/Java/External_Files/PlaneCrash.json");
         commReader = new FileReader("src/Java/External_Files/CommandList.json");
         infoReader = new FileReader("src/Java/External_Files/GameInfo.json");
+        //outsReader = new FileReader("src/Java/External_Files/Outside.json");
 
         locFile = (JSONArray) jsonParser.parse(locReader);
         //locFile = (JSONObject) jsonParser.parse(locReader);
         commFile = (JSONArray) jsonParser.parse(commReader);
         infoFile = (JSONObject) jsonParser.parse(infoReader);
-
-
+        //outsFile = (JSONArray) jsonParser.parse(outsReader);
 
     }
 
@@ -76,6 +80,27 @@ public class JSONParserClass {
         }
         return locations;
     }
+
+    /*public List<Location> outsideParser() {
+
+        //for (Object o : locFile)
+        //for (int i = 0; i < locFile.size(); i++)
+        for (Object o : outsFile){
+            //JSONObject obj = (JSONObject) locFile.get("cockpit");
+
+            JSONObject obj = (JSONObject) o;
+            String name = (String) obj.get("locationName");
+            String description = (String) obj.get("locationDescription");
+            JSONArray locItems = (JSONArray) obj.get("locationItems");
+            JSONObject locDirections = (JSONObject) obj.get("locationDirections");
+            //JSONArray locDirections = (JSONArray) obj.get("locationDirections");
+
+            location = new Location(name, description, locItems, locDirections);
+            //System.out.println(location);
+            locations.add(location);
+        }
+        return locations;
+    }*/
 
     public List<JSONArray> commandParser() {
         verbObj = (JSONObject) commFile.get(0);

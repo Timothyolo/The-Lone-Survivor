@@ -17,48 +17,42 @@ public class GameEngine {
     private TextParser parser;
     //private CommandProcessor processor;
     private JSONParserClass jsonParserClass;
-    private GameLogic logic;
+    //private GameLogic logic;
     private BufferedReader in;
     //private JSONParser jsonParser;
     //private FileReader reader;
     //private JSONArray file;
     private List<Location> locations;
+    //private List<Location> outsides;
     //private Location location;
     private Player player;
     private List<String> command;
     private String input;
     private Location playerLocation;
+    private int dayCount;
+    private double randNum;
+    private boolean checkWin;
 
 
     public GameEngine() throws IOException, ParseException {
         parser = new TextParser();
         //processor = new CommandProcessor();
         jsonParserClass = new JSONParserClass();
-        logic = new GameLogic();
+        //logic = new GameLogic();
         //locations = new ArrayList<>();
         in = new BufferedReader(new InputStreamReader(System.in));
         locations = jsonParserClass.locationParser();
+        //outsides = jsonParserClass.outsideParser();
         //jsonParser = new JSONParser();
         //reader = new FileReader("src/Java/External_Files/location.json");
         //file = (JSONArray) jsonParser.parse(reader);
         player = new Player();
+        dayCount = 1;
+        //randNum = Math.random();
+        checkWin = false;
+
     }
 
-    /*public void locationParser() {
-
-        for (Object o : file){
-            JSONObject obj = (JSONObject) o;
-            String name = (String) obj.get("locationName");
-            String description = (String) obj.get("locationDescription");
-            JSONArray locItems = (JSONArray) obj.get("locationItems");
-            JSONArray locDirections = (JSONArray) obj.get("locationDirections");
-
-            location = new Location(name, description, locItems, locDirections);
-            //System.out.println(location);
-            locations.add(location);
-        }
-
-    }*/
 
     public void startGame() throws IOException, ParseException  {
         //String input;
@@ -69,20 +63,40 @@ public class GameEngine {
         System.out.println("Welcome to Lone Survivor, a text-based adventure game! ");
         System.out.println("You were a passenger on a plane that crash landed into a forest in the middle of nowhere.");
         System.out.println("As you awaken from unconsciousness, you quickly realize you are the only survivor aboard the crash.");
-        System.out.println("You must make it back to civilization or survive until rescue. Good luck.");
+        System.out.println("You have three days to make it back to civilization or survive until rescue. Good luck.");
         System.out.println("******************************************************");
 
-        while (true) {
+        while (checkWin == false) {
+            //while(dayCount < 3)
             //logic.playerInterface();
+            //checkWin();
             playerInterface();
+            checkWin();
         }
 
+    }
+
+    public void checkWin() {
+        if (playerLocation.equals(locations.get(8))) {
+            System.out.println(playerLocation.getDescription());
+            System.out.println("Congratulations and thank you for playing.");
+            checkWin = true;
+        }
+        else if (dayCount == 4) {
+            System.out.println("The trekking through uncharted forest takes its toll on you over 3 days and you succumb to your fatigue and injuries.");
+            System.out.println("You died. Thank you for playing.");
+            System.exit(0);
+        }
     }
 
     public void playerInterface() throws IOException, ParseException {
         //playerLocation.getName()
         System.out.println("******************************************************");
+        System.out.println("It is Day " + dayCount);
         System.out.println("You are currently located in " + playerLocation.getName().toUpperCase());
+        System.out.println(playerLocation.getDescription());
+        //System.out.println("Items: " + playerLocation.getItems());
+        System.out.println("Directions: " + playerLocation.getDirection());
         System.out.println("Enter a command (or 'help commands' to see a list of commands): ");
         input = in.readLine();
         parser.InitialInput(input);
@@ -108,6 +122,7 @@ public class GameEngine {
         }
         else if (command.get(0).equals("use")) {
             //Use engine
+            //still need to implement
         }
         else if (command.get(0).equals("quit")) {
             //quit engine
@@ -124,19 +139,58 @@ public class GameEngine {
         Map<String, String> playerDirection = playerLocation.getDirection();
         String choice = playerDirection.get(noun);
 
-        for (int i = 0; i < locations.size(); i++) {
-            if (choice.equals(locations.get(i).getName())) {
-                player.setPlayerLocation(locations.get(i));
+        try {
+            for (int i = 0; i < locations.size(); i++) {
+                if (choice.equals("???")){
+                    randNum = Math.random();
+                    if(randNum < 0.33){
+                        //choice = "mysterious animal"
+                        //choice = "forest dead end"
+                        player.setPlayerLocation(locations.get(9));
+                    }
+                    else if (randNum >= 0.33 && randNum <= 0.66){
+                        player.setPlayerLocation(locations.get(10));
+                        //dayCount++;
+                    }
+                    else {
+                        player.setPlayerLocation(locations.get(6));
+                    }
+                }
+                else if (choice.equals("cross bridge") && noun.equals("east")) {
+                    player.setPlayerLocation(locations.get(7));
+                }
+                else if (choice.equals("cross bridge") && noun.equals("west")) {
+                    player.setPlayerLocation(locations.get(6));
+                }
+                else if (choice.equals("investigate sound")) {
+                    randNum = Math.random();
+                    if (randNum < 0.5){
+                        player.setPlayerLocation(locations.get(8));
+                    }
+                    else {
+                        player.setPlayerLocation(locations.get(9));
+                        //dayCount++;
+                    }
+                    //player.setPlayerLocation(locations.get(8));
+
+                }
+                if (choice.equals(locations.get(i).getName())) {
+                    player.setPlayerLocation(locations.get(i));
+                }
+            }
+            playerLocation = player.getPlayerLocation();
+            if (playerLocation.getName().equals("lair - mysterious animal") || playerLocation.getName().equals("forest dead end")) {
+                dayCount++;
             }
         }
-        /*if (playerLocation.getDirection().get(0).containsKey(noun)) {
-            player.setPlayerLocation(locations.get(1));
-
+        catch (NullPointerException e) {
+            System.out.println("Invalid command!");
         }
-        else if (playerLocation.getDirection().get(1).containsKey(noun)){
-            player.setPlayerLocation(locations.get(3));
+
+        /*playerLocation = player.getPlayerLocation();
+        if (playerLocation.getName().equals("lair - mysterious animal") || playerLocation.getName().equals("forest dead end")) {
+            dayCount++;
         }*/
-        playerLocation = player.getPlayerLocation();
     }
 
     private void getEngine(String noun) throws IOException, ParseException {
