@@ -138,11 +138,11 @@ public class GameEngine {
 
         Map<String, String> playerDirection = playerLocation.getDirection();
         String choice = playerDirection.get(noun);
-
+        randNum = Math.random();
         try {
             for (int i = 0; i < locations.size(); i++) {
                 if (choice.equals("???")){
-                    randNum = Math.random();
+                    //randNum = Math.random();
                     if(randNum < 0.33){
                         //choice = "mysterious animal"
                         //choice = "forest dead end"
@@ -163,7 +163,7 @@ public class GameEngine {
                     player.setPlayerLocation(locations.get(6));
                 }
                 else if (choice.equals("investigate sound")) {
-                    randNum = Math.random();
+                    //randNum = Math.random();
                     if (randNum < 0.5){
                         player.setPlayerLocation(locations.get(8));
                     }
