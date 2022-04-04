@@ -43,20 +43,33 @@ public class JSONParserClass {
     private String gameInfo;
 
     public JSONParserClass() throws IOException, ParseException {
+        InputStream is = getFileFromResourceAsStream("Java/External_Files/PlaneCrash.json");
+        InputStreamReader isr = new InputStreamReader(is);
+        //InputStreamReader isr1 = new InputStreamReader(getFileFromResourceAsStream("Java/External_Files/PlaneCrash.json"));
+        InputStream is2 = getFileFromResourceAsStream("Java/External_Files/CommandList.json");
+        InputStreamReader isr2 = new InputStreamReader(is2);
+        InputStream is3 = getFileFromResourceAsStream("Java/External_Files/GameInfo.json");
+        InputStreamReader isr3 = new InputStreamReader(is3);
+
         locations = new ArrayList<>();
         commands = new ArrayList<>();
         in = new BufferedReader(new InputStreamReader(System.in));
         jsonParser = new JSONParser();
-        locReader = new FileReader("src/Java/External_Files/PlaneCrash.json");
-        commReader = new FileReader("src/Java/External_Files/CommandList.json");
-        infoReader = new FileReader("src/Java/External_Files/GameInfo.json");
+
+        //locReader = new FileReader("src/Java/External_Files/PlaneCrash.json");
+        //commReader = new FileReader("src/Java/External_Files/CommandList.json");
+        //infoReader = new FileReader("src/Java/External_Files/GameInfo.json");
         //outsReader = new FileReader("src/Java/External_Files/Outside.json");
 
-        locFile = (JSONArray) jsonParser.parse(locReader);
-        //locFile = (JSONObject) jsonParser.parse(locReader);
-        commFile = (JSONArray) jsonParser.parse(commReader);
-        infoFile = (JSONObject) jsonParser.parse(infoReader);
+        //locFile = (JSONArray) jsonParser.parse(locReader);
+
+        //commFile = (JSONArray) jsonParser.parse(commReader);
+        //infoFile = (JSONObject) jsonParser.parse(infoReader);
         //outsFile = (JSONArray) jsonParser.parse(outsReader);
+
+        locFile = (JSONArray) jsonParser.parse(isr);
+        commFile = (JSONArray) jsonParser.parse(isr2);
+        infoFile = (JSONObject) jsonParser.parse(isr3);
 
     }
 
@@ -82,7 +95,6 @@ public class JSONParserClass {
     }
 
     /*public List<Location> outsideParser() {
-
         //for (Object o : locFile)
         //for (int i = 0; i < locFile.size(); i++)
         for (Object o : outsFile){
@@ -122,6 +134,16 @@ public class JSONParserClass {
         gameInfo = (String) infoFile.get("gameInfo");
 
         return gameInfo;
+    }
+
+    private static InputStream getFileFromResourceAsStream(String fileName) {
+        ClassLoader classLoader = JSONParserClass.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+        if (inputStream == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+            return inputStream;
+        }
     }
 
 }
