@@ -69,6 +69,7 @@ public class GameEngine {
         while (checkWin == false) {
             //while(dayCount < 3)
             //logic.playerInterface();
+            //checkWin();
             playerInterface();
             checkWin();
         }
@@ -84,6 +85,7 @@ public class GameEngine {
         else if (dayCount == 4) {
             System.out.println("The trekking through uncharted forest takes its toll on you over 3 days and you succumb to your fatigue and injuries.");
             System.out.println("You died. Thank you for playing.");
+            System.exit(0);
         }
     }
 
@@ -176,21 +178,19 @@ public class GameEngine {
                     player.setPlayerLocation(locations.get(i));
                 }
             }
-        } catch (NullPointerException e) {
+            playerLocation = player.getPlayerLocation();
+            if (playerLocation.getName().equals("lair - mysterious animal") || playerLocation.getName().equals("forest dead end")) {
+                dayCount++;
+            }
+        }
+        catch (NullPointerException e) {
             System.out.println("Invalid command!");
         }
-        /*if (playerLocation.getDirection().get(0).containsKey(noun)) {
-            player.setPlayerLocation(locations.get(1));
 
-        }
-        else if (playerLocation.getDirection().get(1).containsKey(noun)){
-            player.setPlayerLocation(locations.get(3));
-        }*/
-
-        playerLocation = player.getPlayerLocation();
+        /*playerLocation = player.getPlayerLocation();
         if (playerLocation.getName().equals("lair - mysterious animal") || playerLocation.getName().equals("forest dead end")) {
             dayCount++;
-        }
+        }*/
     }
 
     private void getEngine(String noun) throws IOException, ParseException {
