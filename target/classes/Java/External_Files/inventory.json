@@ -1,0 +1,33 @@
+[
+  {
+    "inventory": {
+      "itemName": "radio",
+      "itemAttribute": "make call",
+      "itemLocation": "cockpit"
+    }
+  },
+
+  {
+    "inventory": {
+      "itemName": "flashlight",
+      "itemAttribute": "see path",
+      "itemLocation": "economy"
+    }
+  },
+
+  {
+    "inventory": {
+      "itemName": "knife",
+      "itemAttribute": "kill animal",
+      "itemLocation": "service area"
+    }
+  },
+
+  {
+    "inventory": {
+      "itemName": "inflatable raft",
+      "itemAttribute": "ride on water",
+      "itemLocation": "first class"
+    }
+  }
+]
