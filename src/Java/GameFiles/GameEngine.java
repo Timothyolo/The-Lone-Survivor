@@ -139,6 +139,7 @@ public class GameEngine {
         Map<String, String> playerDirection = playerLocation.getDirection();
         String choice = playerDirection.get(noun);
         randNum = Math.random();
+        
         try {
             for (int i = 0; i < locations.size(); i++) {
                 if (choice.equals("???")){
